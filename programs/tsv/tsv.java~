@@ -1,0 +1,17 @@
+public class CLFMapper extends Mapper<Object, Text, Text, Text>{
+private SimpleDateFormat dateFormatter =
+new SimpleDateFormat("dd/MMM/yyyy:HH:mm:ss Z");
+private Pattern p =
+Pattern.compile("^([\\d.]+) (\\S+) (\\S+)"
++ " \\[([\\w:/]+\\s[+\\-]\\d{4})\\] \"(\\w+) (.+?)
+(.+?)\" "
++ "(\\d+) (\\d+) \"([^\"]+|(.+?))\"
+\"([^\"]+|(.+?))\"",
+Pattern.DOTALL);
+private Text outputKey = new Text();
+private Text outputValue = new Text();
+@Override
+protected void map(Object key, Text value, Context
+context) throws IOException, InterruptedException {
+String entry = value.toString();
+
